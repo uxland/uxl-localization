@@ -9,4 +9,9 @@
 
 ## Usage
 
-`import {createAction, createActionThunk, createBasicReducer, createAsyncReducer, ReduxMixin} from '@uxland/uxl-localization'`
+```
+import {localeMixin, localizationSelectors, localizerFactory} from '@uxland/uxl-localization'
+
+export class MyComponent extends localeMixin(store, selectors, factory)(PolymerElement){
+}
+```
