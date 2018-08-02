@@ -1,68 +1,74 @@
 {
-    "name": "@uxland/uxl-localization",
-    "version": "0.0.0-development",
-    "description": "UXLand - Localization",
-    "homepage": "https://github.com/uxland/uxl-localization#readme",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/uxland/uxl-localization.git"
-    },
-    "bugs": {
-        "url": "https://github.com/uxland/uxl-localization/issues"
-    },
-    "author": "UXLand <dev@uxland.es> (http://www.uxland.es)",
-    "main": "dist/index.js",
-    "module": "dist/index.js",
-    "keywords": [
-        "polymer",
-        "web components"
-    ],
-    "devDependencies": {
-        "@polymer/iron-demo-helpers": "^3.0.0-pre.19",
-        "@types/chai": "^4.1.4",
-        "@types/lodash-es": "^4.17.0",
-        "@types/mocha": "^5.2.2",
-        "@types/polymer": "^1.2.4",
-        "@types/redux-mock-store": "^1.0.0",
-        "@types/sinon": "^5.0.1",
-        "@webcomponents/webcomponentsjs": "^2.0.0",
-        "chai": "^4.1.2",
-        "dts-generator": "^2.1.0",
-        "gulp": "^3.9.1",
-        "gulp-bump": "^2.7.0",
-        "gulp-run": "^1.7.1",
-        "lodash": "3.10.1",
-        "mocha": "^5.2.0",
-        "ncp": "^2.0.0",
-        "nodemon": "^1.18.3",
-        "nsp": "^2.6.3",
-        "redux-mock-store": "git+https://github.com/dpinart/redux-mock-store.git",
-        "require-dir": "^0.3.2",
-        "rimraf": "^2.6.2",
-        "run-sequence": "^2.1.0",
-        "sinon": "^6.0.0",
-        "typescript": "^2.9.2",
-        "wct-browser-legacy": "^1.0.0"
-    },
-    "dependencies": {
-        "@polymer/polymer": "^3.0.2",
-        "@uxland/uxl-redux": "^1.0.0",
-        "intl-messageformat": "^2.2.0"
-    },
-    "scripts": {
-        "build": "tsc -p tsconfig.json || echo 'Build completed'",
-        "test:ui:watch": "nodemon --watch test --watch src -x \"polymer test --config-file wct.config.json\"",
-        "test:ui": "polymer test --config-file wct.config.json",
-        "test:unit": "node --experimental-modules node_modules/mocha/bin/_mocha -r esm --ui tdd --reporter mochawesome test/unit",
-        "tdd": "node --experimental-modules node_modules/mocha/bin/_mocha --watch -r esm --ui tdd --reporter mochawesome test/unit",
-        "dist": "tsc --p gulp/tsconfig-dist.json && gulp generate-d-ts",
-        "prepublishOnly": "if [ -d dist ]; then ncp dist/. . && rimraf dist/; fi"
-    },
-    "license": "Apache-2.0",
-    "directories": {
-        "test": "test"
-    },
-    "publishConfig": {
-        "access": "public"
-    }
+  "name": "@uxland/uxl-localization",
+  "version": "0.0.0-development",
+  "description": "UXLand - Localization",
+  "homepage": "https://github.com/uxland/uxl-localization#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uxland/uxl-localization.git"
+  },
+  "bugs": {
+    "url": "https://github.com/uxland/uxl-localization/issues"
+  },
+  "author": "UXLand <dev@uxland.es> (http://www.uxland.es)",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "keywords": [
+    "polymer",
+    "web components"
+  ],
+  "devDependencies": {
+    "@polymer/iron-demo-helpers": "^3.0.0-pre.19",
+    "@types/chai": "^4.1.4",
+    "@types/lodash-es": "^4.17.0",
+    "@types/mocha": "^5.2.2",
+    "@types/polymer": "^1.2.4",
+    "@types/redux-mock-store": "^1.0.0",
+    "@types/sinon": "^5.0.1",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "chai": "^4.1.2",
+    "dts-generator": "^2.1.0",
+    "gulp": "^3.9.1",
+    "gulp-bump": "^2.7.0",
+    "gulp-run": "^1.7.1",
+    "lodash": "3.10.1",
+    "mocha": "^5.2.0",
+    "mochawesome": "^3.0.3",
+    "ncp": "^2.0.0",
+    "nodemon": "^1.18.3",
+    "nsp": "^2.6.3",
+    "redux-mock-store": "git+https://github.com/dpinart/redux-mock-store.git",
+    "require-dir": "^0.3.2",
+    "rimraf": "^2.6.2",
+    "run-sequence": "^2.1.0",
+    "semantic-release": "^15.9.3",
+    "sinon": "^6.0.0",
+    "travis-deploy-once": "^5.0.1",
+    "typescript": "^2.9.2",
+    "wct-browser-legacy": "^1.0.0"
+  },
+  "dependencies": {
+    "@polymer/polymer": "^3.0.2",
+    "@uxland/uxl-redux": "^1.0.0",
+    "intl-messageformat": "^2.2.0",
+    "reselect": "^3.0.1"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json || echo 'Build completed'",
+    "test:ui:watch": "nodemon --watch test --watch src -x \"polymer test --config-file wct.config.json\"",
+    "test:ui": "polymer test --config-file wct.config.json",
+    "test:unit": "node --experimental-modules node_modules/mocha/bin/_mocha -r esm --ui tdd --reporter mochawesome test/unit",
+    "tdd": "node --experimental-modules node_modules/mocha/bin/_mocha --watch -r esm --ui tdd --reporter mochawesome test/unit",
+    "dist": "tsc --p gulp/tsconfig-dist.json && gulp generate-d-ts",
+    "prepublishOnly": "if [ -d dist ]; then ncp dist/. . && rimraf dist/; fi",
+    "travis-deploy-once": "travis-deploy-once",
+    "semantic-release": "semantic-release"
+  },
+  "license": "Apache-2.0",
+  "directories": {
+    "test": "test"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

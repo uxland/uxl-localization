@@ -1,5 +1,5 @@
-import {LocalizationState} from "./reducer";
-import {createSelector} from "reselect";
+import { LocalizationState } from "./reducer";
+import { createSelector } from "Reselect";
 
 export interface LocalizationSelectors {
     localizationSelector: (state: any) => LocalizationState;
@@ -8,11 +8,11 @@ export interface LocalizationSelectors {
     localesSelector: (state: any) => Object;
 }
 
-const formatSelectorFactory: (localizationSelector: (state: any) => LocalizationState) => any  = localizationSelector =>
+const formatSelectorFactory: (localizationSelector: (state: any) => LocalizationState) => any = localizationSelector =>
     createSelector(localizationSelector, localization => localization.formats);
-const languageSelectorFactory: (localizationSelector: (state: any) => LocalizationState) => any  = localizationSelector =>
+const languageSelectorFactory: (localizationSelector: (state: any) => LocalizationState) => any = localizationSelector =>
     createSelector(localizationSelector, localization => localization.language);
-const localesSelectorFactory: (localizationSelector: (state: any) => LocalizationState) => any  = localizationSelector =>
+const localesSelectorFactory: (localizationSelector: (state: any) => LocalizationState) => any = localizationSelector =>
     createSelector(localizationSelector, localization => localization.locales);
 export interface AppLocalizationState {
     localization: LocalizationState;
@@ -20,10 +20,10 @@ export interface AppLocalizationState {
 const defaultLocalizationSelector = (state: AppLocalizationState) => state.localization;
 export const localizationSelectors: LocalizationSelectors = <any>{};
 export const setLocalizationSelector: (selector: (state: any) => LocalizationState) => void = selector => {
-  localizationSelectors.localizationSelector = selector;
-  localizationSelectors.formatsSelector = formatSelectorFactory(selector);
-  localizationSelectors.languageSelector = languageSelectorFactory(selector);
-  localizationSelectors.localesSelector =localesSelectorFactory(selector);
+    localizationSelectors.localizationSelector = selector;
+    localizationSelectors.formatsSelector = formatSelectorFactory(selector);
+    localizationSelectors.languageSelector = languageSelectorFactory(selector);
+    localizationSelectors.localesSelector = localesSelectorFactory(selector);
 };
 setLocalizationSelector(defaultLocalizationSelector);
 export default localizationSelectors;
