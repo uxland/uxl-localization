@@ -1,5 +1,5 @@
 import { LocalizationState } from "./reducer";
-import { createSelector } from "Reselect";
+import { createSelector } from "reselect";
 
 export interface LocalizationSelectors {
     localizationSelector: (state: any) => LocalizationState;
