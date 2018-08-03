@@ -49,7 +49,9 @@
   },
   "dependencies": {
     "@polymer/polymer": "^3.0.2",
+    "@uxland/uxl-polymer2-ts": "^1.0.5",
     "@uxland/uxl-redux": "^1.0.0",
+    "dot-prop-immutable": "git+https://github.com/dpinart/dot-prop-immutable.git",
     "intl-messageformat": "^2.2.0",
     "reselect": "^3.0.1"
   },

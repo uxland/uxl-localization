@@ -17,7 +17,7 @@ export interface ILocalizationMixin<T> extends ILocalization, Node {
     new (): ILocalizationMixin<T> & T;
 }
 
-export const localeMixin = (store, selectors: LocalizationSelectors, factory: LocalizerFactory) =>
+export const localeMixin = <T>(store, selectors: LocalizationSelectors, factory: LocalizerFactory) =>
     dedupingMixin(p => {
         class LocaleMixin extends reduxMixin(store)(p) {
             private cachedMessages = {};
@@ -28,13 +28,14 @@ export const localeMixin = (store, selectors: LocalizationSelectors, factory: Lo
             @property({ statePath: selectors.localesSelector })
             locales: Object;
             @property() useKeyIfMissing: boolean = true;
-            localize: (key: string, ...args: any[]) => string;
-            @computed("localize", ["formats", "language", "locales", "useKeyIfMissing"])
-            private computeLocalize(formats: any, language: string, locales: Object, useKeyIfMissing: boolean) {
-                return factory(language, locales, formats, useKeyIfMissing);
+
+            @computed(['formats', 'language', 'locales', 'useKeyIfMissing'])
+            get localize(): Localizer{
+                return factory(this.language, this.locales, this.formats, this.useKeyIfMissing);
             }
+
         }
-        return LocaleMixin;
+    return (<any>LocaleMixin) as ILocalizationMixin<T>;
     });
 
 export default localeMixin;

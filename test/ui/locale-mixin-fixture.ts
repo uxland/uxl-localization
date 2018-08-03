@@ -20,7 +20,7 @@ const getComponentName = (nameBase: string) => {
 };
 const getDefaultComponentName = getComponentName(defaultComponentName);
 
-interface DefaultTestComponent extends PolymerElement, ILocalization {
+interface DefaultTestComponent extends ILocalization {
     header: HTMLHeadElement;
 }
 
@@ -43,7 +43,6 @@ const createDefaultComponent: (store: Store, selectors: LocalizationSelectors, f
         static get template() {
             return html`<h1 id="header">[[localize("test.property1")]]</h1>`;
         }
-
         @item("header") header: HTMLHeadElement;
     }
 
