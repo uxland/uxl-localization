@@ -1,9 +1,11 @@
 import { reduxMixin } from "@uxland/uxl-redux/redux-mixin";
 import { dedupingMixin } from "@polymer/polymer/lib/utils/mixin";
-import { computed, property } from "@uxland/uxl-polymer2-ts";
+import { property } from "@uxland/uxl-polymer2-ts";
 import { LocalizationSelectors } from "./selectors";
 import "intl-messageformat";
 import { Localizer, LocalizerFactory } from "./localizer-factory";
+import {LitElement} from '@polymer/lit-element/lit-element';
+import createLocalizer from "./create-localizer";
 
 export interface ILocalization {
     localize: Localizer;
@@ -13,14 +15,13 @@ export interface ILocalization {
     locales: Object;
 }
 
-export interface ILocalizationMixin<T> extends ILocalization, Node {
+export interface ILocalizationMixin<T> extends ILocalization, LitElement {
     new (): ILocalizationMixin<T> & T;
 }
 
 export const localeMixin = <T>(store, selectors: LocalizationSelectors, factory: LocalizerFactory) =>
-    dedupingMixin(p => {
+    dedupingMixin((p: LitElement) => {
         class LocaleMixin extends reduxMixin(store)(p) {
-            private cachedMessages = {};
             @property({ statePath: selectors.formatsSelector })
             formats: any;
             @property({ statePath: selectors.languageSelector })
@@ -28,10 +29,12 @@ export const localeMixin = <T>(store, selectors: LocalizationSelectors, factory:
             @property({ statePath: selectors.localesSelector })
             locales: Object;
             @property() useKeyIfMissing: boolean = true;
+            localize: Localizer;
 
-            @computed(['formats', 'language', 'locales', 'useKeyIfMissing'])
-            get localize(): Localizer{
-                return factory(this.language, this.locales, this.formats, this.useKeyIfMissing);
+            _shouldRender(props: LocaleMixin, changedProps: LocaleMixin, prevProps: LocaleMixin){
+                if(Object.getOwnPropertyNames(changedProps).some(k => k === 'language' || k === 'formats' || k === 'locales' || k === 'useKeyIfMissing'))
+                    this.localize = factory(changedProps.language, changedProps.locales, changedProps.formats, changedProps.useKeyIfMissing);
+                return true;
             }
 
         }

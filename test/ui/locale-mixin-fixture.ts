@@ -1,5 +1,5 @@
 import createMockStore from "redux-mock-store";
-import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
+import { html, LitElement } from "@polymer/lit-element/lit-element";
 import * as sinon from "sinon";
 import { SinonStub } from "sinon";
 import { customElement, item, property } from "@uxland/uxl-polymer2-ts";
@@ -39,9 +39,10 @@ const createDefaultComponent: (store: Store, selectors: LocalizationSelectors, f
     const componentName = getDefaultComponentName();
 
     @customElement(componentName)
-    class Component extends localeMixin(store, selectors, factory)(PolymerElement) implements DefaultTestComponent {
-        static get template() {
-            return html`<h1 id="header">[[localize("test.property1")]]</h1>`;
+    class Component extends localeMixin(store, selectors, factory)(LitElement) implements DefaultTestComponent {
+
+        _render(props: Component){
+            return html `<h1 id='header'>${props.localize('test.property1')}></h1>`
         }
         @item("header") header: HTMLHeadElement;
     }
