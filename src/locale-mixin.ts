@@ -36,9 +36,9 @@ export const localeMixin = <T>(store, selectors: LocalizationSelectors, factory:
             @property()
             localize: Localizer;
 
-            _shouldRender(props: LocaleMixin, changedProps: LocaleMixin, prevProps: LocaleMixin){
+            _shouldRender(props: LocaleMixin, changedProps: LocaleMixin){
                 if(changedProps != null && Object.getOwnPropertyNames(changedProps).some(k => k === 'language' || k === 'formats' || k === 'locales' || k === 'useKeyIfMissing'))
-                    this.localize = factory(props.language, props.locales, props.formats, props.useKeyIfMissing);
+                    this['__data']['localize'] = factory(props.language, props.locales, props.formats, props.useKeyIfMissing);
                 return true;
             }
 
