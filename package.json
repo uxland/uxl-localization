@@ -48,7 +48,7 @@
         "wct-browser-legacy": "^1.0.0"
     },
     "dependencies": {
-        "@polymer/lit-element": "^0.5.2",
+        "@polymer/lit-element": "^0.6.1",
         "@polymer/polymer": "^3.0.2",
         "@uxland/uxl-redux": "^1.0.0",
         "dot-prop-immutable": "git+https://github.com/dpinart/dot-prop-immutable.git",

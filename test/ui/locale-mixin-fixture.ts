@@ -41,8 +41,8 @@ const createDefaultComponent: (store: Store, selectors: LocalizationSelectors, f
     @customElement(componentName)
     class Component extends localeMixin(store, selectors, factory)(LitElement) {
 
-        _render(props: Component){
-            return html `<h1 id='header'>${props.localize('test.property1')}</h1>`
+        render(){
+            return html `<h1 id='header'>${this.localize('test.property1')}</h1>`
         }
         @item("header") header: HTMLHeadElement;
     }
@@ -76,8 +76,9 @@ suite("locale mixin test suite", () => {
         };
     });
 
-    test("mixin test", () => {
+    test("mixin test", async () => {
         let component = createDefaultComponent(mockStore, selectors, factoryStub);
+        await component.updateComplete;
         assert.isNull(component.formats);
         assert.equal(component.language, "ca");
         assert.deepEqual(component.locales, testLocales);
@@ -88,55 +89,55 @@ suite("locale mixin test suite", () => {
     });
     test("localize is recomputed if locales, formats, language or useKeyifMissing properties change", async () => {
         let component = createDefaultComponent(mockStore, selectors, factoryStub);
-        await component.renderComplete;
+        await component.updateComplete;
         assert.isTrue(factoryStub.calledOnce);
 
         languageStub.returns("en");
         mockStore.dispatch(action);
-        await component.renderComplete;
+        await component.updateComplete;
         assert.isTrue(factoryStub.calledTwice);
         assert.isTrue(factoryStub.calledWithExactly("en", testLocales, null, true));
         const formats = {};
         formatsStub.returns(formats);
         mockStore.dispatch(action);
-        await component.renderComplete;
+        await component.updateComplete;
         assert.isTrue(factoryStub.calledWithExactly("en", testLocales, formats, true));
         assert.isTrue(factoryStub.calledThrice);
 
         const newLocales = { ca: {}, en: {} };
         localesStub.returns({ ca: {}, en: {} });
         mockStore.dispatch(action);
-        await component.renderComplete;
+        await component.updateComplete;
         assert.isTrue(factoryStub.callCount === 4);
         assert.isTrue(factoryStub.calledWithExactly("en", newLocales, formats, true));
 
         component.useKeyIfMissing = false;
-        await component.renderComplete;
+        await component.updateComplete;
         assert.isTrue(factoryStub.callCount === 5);
         assert.isTrue(factoryStub.calledWithExactly("en", newLocales, formats, false));
     });
     test("localize is not recomputed if locales, formats, language or useKeyifMissing properties do not change", async() => {
         let component = createDefaultComponent(mockStore, selectors, factoryStub);
-        await component.renderComplete;
+        await component.updateComplete;
         assert.isTrue(factoryStub.calledOnce);
 
         languageStub.returns("ca");
         mockStore.dispatch(action);
-        await component.renderComplete;
+        await component.updateComplete;
         assert.isTrue(factoryStub.calledOnce);
 
         formatsStub.returns(null);
         mockStore.dispatch(action);
-        await component.renderComplete;
+        await component.updateComplete;
         assert.isTrue(factoryStub.calledOnce);
 
         localesStub.returns(testLocales);
         mockStore.dispatch(action);
-        await component.renderComplete;
+        await component.updateComplete;
         assert.isTrue(factoryStub.calledOnce);
 
         component.useKeyIfMissing = true;
-        await component.renderComplete;
+        await component.updateComplete;
         assert.isTrue(factoryStub.calledOnce);
     });
 });

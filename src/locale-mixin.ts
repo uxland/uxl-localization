@@ -5,6 +5,7 @@ import { LocalizationSelectors } from "./selectors";
 import "intl-messageformat";
 import { Localizer, LocalizerFactory } from "./localizer-factory";
 import {LitElement} from '@polymer/lit-element/lit-element';
+import {PropertyValues} from "@polymer/lit-element/lib/updating-element";
 
 export interface ILocalization extends LitElement{
     localize: Localizer;
@@ -14,16 +15,11 @@ export interface ILocalization extends LitElement{
     locales: Object;
 }
 
-export interface ILocalizationMixin<T> extends ILocalization {
+export interface ILocalizationMixin<T> extends ILocalization, LitElement {
     new (): ILocalizationMixin<T> & T;
 }
-export interface LitElementConstructor {
-    new(): LitElement;
-
-}
-
 export const localeMixin = <T>(store, selectors: LocalizationSelectors, factory: LocalizerFactory) =>
-    dedupingMixin((p: LitElementConstructor) => {
+    dedupingMixin((p: any) => {
         class LocaleMixin extends reduxMixin(store)(p) {
             @property({ statePath: selectors.formatsSelector })
             formats: any;
@@ -35,11 +31,10 @@ export const localeMixin = <T>(store, selectors: LocalizationSelectors, factory:
             useKeyIfMissing: boolean = true;
             @property()
             localize: Localizer;
-
-            _shouldRender(props: LocaleMixin, changedProps: LocaleMixin){
-                if(changedProps != null && Object.getOwnPropertyNames(changedProps).some(k => k === 'language' || k === 'formats' || k === 'locales' || k === 'useKeyIfMissing'))
-                    this['__data']['localize'] = factory(props.language, props.locales, props.formats, props.useKeyIfMissing);
-                return true;
+            update(changedProps: PropertyValues){
+                if(changedProps != null && (changedProps.has('language') || changedProps.has('formats') || changedProps.has('locales') || changedProps.has('useKeyIfMissing')))
+                    this.localize = factory(this.language, this.locales, this.formats, this.useKeyIfMissing);
+                return  super.update(changedProps);
             }
 
         }
