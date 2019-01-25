@@ -71,6 +71,10 @@
         "test": "test"
     },
     "publishConfig": {
-        "access": "public"
+        "access": "public",
+        "tag": "legacy"
+    },
+    "release": {
+        "branch": "legacy"
     }
 }
