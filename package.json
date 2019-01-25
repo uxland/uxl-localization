@@ -48,14 +48,15 @@
         "wct-browser-legacy": "^1.0.0"
     },
     "dependencies": {
-        "@polymer/lit-element": "^0.6.1",
+        "lit-element": "^2.0.0-rc.5",
         "@polymer/polymer": "^3.0.2",
-        "@uxland/uxl-redux": "^1.0.0",
+        "@uxland/uxl-redux": "^2.0.1",
         "dot-prop-immutable": "git+https://github.com/dpinart/dot-prop-immutable.git",
         "intl-messageformat": "^2.2.0",
         "reselect": "^3.0.1"
     },
     "scripts": {
+        "deps:install": "npm install",
         "build": "tsc -p tsconfig.json || echo 'Build completed'",
         "test:ui:watch": "nodemon --watch test --watch src -x \"polymer test --config-file wct.config.json\"",
         "test:ui": "polymer test --config-file wct.config.json",
