@@ -20,8 +20,8 @@
     "devDependencies": {
         "@polymer/iron-demo-helpers": "^3.0.0-pre.19",
         "@types/chai": "^4.1.4",
-        "@types/lodash-es": "^4.17.0",
         "@types/mocha": "^5.2.2",
+        "@types/ramda": "^0.25.47",
         "@types/redux-mock-store": "^1.0.0",
         "@types/sinon": "^5.0.1",
         "@webcomponents/webcomponentsjs": "^2.0.0",
@@ -31,7 +31,6 @@
         "gulp": "^3.9.1",
         "gulp-bump": "^2.7.0",
         "gulp-run": "^1.7.1",
-        "lodash": "3.10.1",
         "mocha": "^5.2.0",
         "mochawesome": "^3.0.3",
         "ncp": "^2.0.0",
@@ -44,18 +43,19 @@
         "semantic-release": "^15.9.3",
         "sinon": "^6.0.0",
         "travis-deploy-once": "^5.0.1",
-        "typescript": "^2.9.2",
+        "typescript": "^3.2.4",
         "wct-browser-legacy": "^1.0.0"
     },
     "dependencies": {
-        "@polymer/lit-element": "^0.6.1",
         "@polymer/polymer": "^3.0.2",
-        "@uxland/uxl-redux": "^1.0.0",
-        "dot-prop-immutable": "git+https://github.com/dpinart/dot-prop-immutable.git",
+        "@uxland/uxl-redux": "^2.0.1",
         "intl-messageformat": "^2.2.0",
+        "lit-element": "^2.0.0-rc.5",
+        "ramda": "^0.26.1",
         "reselect": "^3.0.1"
     },
     "scripts": {
+        "deps:install": "npm install",
         "build": "tsc -p tsconfig.json || echo 'Build completed'",
         "test:ui:watch": "nodemon --watch test --watch src -x \"polymer test --config-file wct.config.json\"",
         "test:ui": "polymer test --config-file wct.config.json",

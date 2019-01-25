@@ -1,7 +1,7 @@
 
 declare var IntlMessageFormat;
-import {get} from "dot-prop-immutable";
-
+import lensPath from 'ramda/es/lensPath'
+import view from 'ramda/es/view';
 const getArgs = (args: any[]): any[] =>{
     let result = args;
     if(args && args.length == 1){
@@ -17,6 +17,7 @@ const getArgs = (args: any[]): any[] =>{
 
     return result;
 };
+const getLens = (key: string) => lensPath(String(key).split('.'));
 export type Localizer = (key: string, ...args: any[]) => string;
 export type LocalizerFactory = (language: string, locales: Object, formats: any, useKeyIfMissing: boolean) => Localizer;
 export const localizerFactory: LocalizerFactory = (language: string, locales: Object, formats: any, useKeyIfMissing: boolean) =>{
@@ -24,7 +25,7 @@ export const localizerFactory: LocalizerFactory = (language: string, locales: Ob
     return function localize(key: string, ...args: any[]) {
         if(!key || !locales || !language || !locales[language])
             return '';
-        let translatedValue = get(locales[language], key);
+        let translatedValue = view(getLens(key), locales[language]);
         if(!translatedValue)
             return useKeyIfMissing ? key : '';
         if(!args || !args.length)

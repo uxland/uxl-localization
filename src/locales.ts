@@ -1,7 +1,8 @@
-import merge from 'lodash-es/merge';
+import mergeDeepLeft from 'ramda/es/mergeDeepLeft';
+import when from 'ramda/es/when';
 import locActionNamesFactory from "./constants";
 import {Action, createAction} from "@uxland/uxl-redux/create-action";
 const setLocaleActionName = locActionNamesFactory('set-locales');
 export const localesReducer: (state: any, action: Action<Object, any>) => any =
-    (state = {}, action) => action.type === setLocaleActionName ? merge({...state}, action.payload) : state;
+    (state = {}, action) => when(() => action.type === setLocaleActionName, mergeDeepLeft(action.payload))(state);
 export const setLocalesActionCreator = createAction<Object, any>(setLocaleActionName);

@@ -2,7 +2,7 @@ import createMockStore from "redux-mock-store";
 import { html, LitElement } from "@polymer/lit-element/lit-element";
 import * as sinon from "sinon";
 import { SinonStub } from "sinon";
-import { customElement, item, property } from "@uxland/uxl-polymer2-ts";
+import { customElement, query, property } from "lit-element/lib/decorators";
 import localeMixin from "../../src/locale-mixin";
 import { Store } from "redux";
 import { LocalizationSelectors } from "../../src/selectors";
@@ -44,7 +44,7 @@ const createDefaultComponent: (store: Store, selectors: LocalizationSelectors, f
         render(){
             return html `<h1 id='header'>${this.localize('test.property1')}</h1>`
         }
-        @item("header") header: HTMLHeadElement;
+        @query("#header") header: HTMLHeadElement;
     }
 
     return addComponentToFixture(componentName);

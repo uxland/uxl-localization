@@ -1,11 +1,12 @@
 import { reduxMixin } from "@uxland/uxl-redux/redux-mixin";
 import { dedupingMixin } from "@polymer/polymer/lib/utils/mixin";
-import { property } from "@uxland/uxl-polymer2-ts";
+import { property } from "lit-element/lib/decorators";
 import { LocalizationSelectors } from "./selectors";
 import "intl-messageformat";
 import { Localizer, LocalizerFactory } from "./localizer-factory";
-import {LitElement} from '@polymer/lit-element/lit-element';
-import {PropertyValues} from "@polymer/lit-element/lib/updating-element";
+import {LitElement} from 'lit-element/lit-element';
+import {PropertyValues} from "lit-element/lib/updating-element";
+import {statePath} from '@uxland/uxl-redux/state-path';
 
 export interface ILocalization extends LitElement{
     localize: Localizer;
@@ -21,11 +22,11 @@ export interface ILocalizationMixin<T> extends ILocalization, LitElement {
 export const localeMixin = <T>(store, selectors: LocalizationSelectors, factory: LocalizerFactory) =>
     dedupingMixin((p: any) => {
         class LocaleMixin extends reduxMixin(store)(p) {
-            @property({ statePath: selectors.formatsSelector })
+            @statePath(selectors.formatsSelector)
             formats: any;
-            @property({ statePath: selectors.languageSelector })
+            @statePath(selectors.languageSelector)
             language: string;
-            @property({ statePath: selectors.localesSelector })
+            @statePath(selectors.localesSelector)
             locales: Object;
             @property()
             useKeyIfMissing: boolean = true;
