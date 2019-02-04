@@ -26,4 +26,3 @@ export const setLocalizationSelector: (selector: (state: any) => LocalizationSta
     localizationSelectors.localesSelector = localesSelectorFactory(selector);
 };
 setLocalizationSelector(defaultLocalizationSelector);
-export default localizationSelectors;

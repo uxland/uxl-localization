@@ -24,4 +24,3 @@ export const createLocalizer = (store: Store<any, AnyAction>, localizerFactory: 
     setLocalizer();
     return (key: string, ...args) => localizer(key, ...args);
 };
-export default createLocalizer;

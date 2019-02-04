@@ -10,4 +10,3 @@ export interface LocalizationState {
 }
 
 export const reducer: Reducer = combineReducers<LocalizationState>({formats: formatReducer, language: languageReducer, locales: localesReducer});
-export default reducer;

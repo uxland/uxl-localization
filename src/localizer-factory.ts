@@ -45,4 +45,3 @@ export const localizerFactory: LocalizerFactory = (language: string, locales: Ob
         return translatedMessage.format(arg);
     }
 };
-export default localizerFactory;

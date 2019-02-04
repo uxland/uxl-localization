@@ -1,32 +1,37 @@
-import { reduxMixin } from "@uxland/uxl-redux/redux-mixin";
 import { dedupingMixin } from "@polymer/polymer/lib/utils/mixin";
-import { property } from "lit-element/lib/decorators";
+import {property} from "lit-element/lib/decorators";
 import { LocalizationSelectors } from "./selectors";
 import "intl-messageformat";
 import { Localizer, LocalizerFactory } from "./localizer-factory";
+import {MixinFunction} from '@uxland/uxl-utilities/types';
 import {LitElement} from 'lit-element/lit-element';
 import {PropertyValues} from "lit-element/lib/updating-element";
-import {statePath} from '@uxland/uxl-redux/state-path';
+import {connect, ConnectMixin, ConnectMixinConstructor, watch} from "@uxland/uxl-redux";
+import {Store} from "redux";
 
-export interface ILocalization extends LitElement{
+export interface LocalizationMixin {
     localize: Localizer;
     useKeyIfMissing: boolean;
     formats: any;
     language: string;
     locales: Object;
 }
-
-export interface ILocalizationMixin<T> extends ILocalization, LitElement {
-    new (): ILocalizationMixin<T> & T;
+export interface LocalizationMixinConstructor extends ConnectMixinConstructor{
+    new(...args: any[]): LocalizationMixin & LitElement & ConnectMixin;
 }
-export const localeMixin = <T>(store, selectors: LocalizationSelectors, factory: LocalizerFactory) =>
-    dedupingMixin((p: any) => {
-        class LocaleMixin extends reduxMixin(store)(p) {
-            @statePath(selectors.formatsSelector)
+export type LocaleMixinFunction = MixinFunction<LocalizationMixinConstructor>;
+
+
+export const localeMixin:(store: Store<any, any>, selectors: LocalizationSelectors, factory: LocalizerFactory) => LocaleMixinFunction
+ = (store, selectors, factory) =>
+    dedupingMixin((superClass:ConnectMixinConstructor) => {
+        const watchOptions = {store};
+        class LocaleMixin extends connect()(superClass) implements LocalizationMixin{
+            @watch(selectors.formatsSelector, watchOptions)
             formats: any;
-            @statePath(selectors.languageSelector)
+            @watch(selectors.languageSelector, watchOptions)
             language: string;
-            @statePath(selectors.localesSelector)
+            @watch(selectors.localesSelector, watchOptions)
             locales: Object;
             @property()
             useKeyIfMissing: boolean = true;
@@ -35,11 +40,9 @@ export const localeMixin = <T>(store, selectors: LocalizationSelectors, factory:
             update(changedProps: PropertyValues){
                 if(changedProps != null && (changedProps.has('language') || changedProps.has('formats') || changedProps.has('locales') || changedProps.has('useKeyIfMissing')))
                     this.localize = factory(this.language, this.locales, this.formats, this.useKeyIfMissing);
+
                 return  super.update(changedProps);
             }
-
         }
-    return (<any>LocaleMixin) as ILocalizationMixin<T>;
+        return <any>LocaleMixin;
     });
-
-export default localeMixin;
