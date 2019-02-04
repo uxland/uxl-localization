@@ -16,7 +16,7 @@ export interface LocalizationMixin {
     language: string;
     locales: Object;
 }
-export interface LocalizationMixinConstructor extends ConnectMixinConstructor{
+export interface LocalizationMixinConstructor extends ConnectMixinConstructor, LocalizationMixin{
     new(...args: any[]): LocalizationMixin & LitElement & ConnectMixin;
 }
 export type LocaleMixinFunction = MixinFunction<LocalizationMixinConstructor>;
