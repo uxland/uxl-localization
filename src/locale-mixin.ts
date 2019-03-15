@@ -26,7 +26,7 @@ export const localeMixin:(store: Store<any, any>, selectors: LocalizationSelecto
  = (store, selectors, factory) =>
     dedupingMixin((superClass:ConnectMixinConstructor) => {
         const watchOptions = {store};
-        class LocaleMixin extends connect()(superClass) implements LocalizationMixin{
+        class LocaleMixin extends connect(store)(superClass) implements LocalizationMixin{
             @watch(selectors.formatsSelector, watchOptions)
             formats: any;
             @watch(selectors.languageSelector, watchOptions)
