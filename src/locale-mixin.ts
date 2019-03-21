@@ -1,15 +1,14 @@
-import { dedupingMixin } from "@polymer/polymer/lib/utils/mixin";
 import {property} from "lit-element/lib/decorators";
 import { LocalizationSelectors } from "./selectors";
 import "intl-messageformat";
 import { Localizer, LocalizerFactory } from "./localizer-factory";
-import {MixinFunction} from '@uxland/uxl-utilities/types';
+import {MixinFunction, dedupingMixin} from '@uxland/uxl-utilities';
 import {LitElement} from 'lit-element/lit-element';
 import {PropertyValues} from "lit-element/lib/updating-element";
-import {connect, ConnectMixin, ConnectMixinConstructor, watch} from "@uxland/uxl-redux";
+import {connect, ConnectMixin, ConnectMixinConstructor, watch} from "@uxland/lit-redux-connect";
 import {Store} from "redux";
 
-export interface LocalizationMixin {
+export interface LocalizationMixin extends LitElement{
     localize: Localizer;
     useKeyIfMissing: boolean;
     formats: any;

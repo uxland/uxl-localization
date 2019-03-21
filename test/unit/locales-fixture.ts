@@ -1,19 +1,17 @@
 import { localesReducer, setLocalesActionCreator } from "../../src/locales";
-
-const assert = chai.assert;
-suite("locales-fixture", () => {
+import {assert} from 'chai';
+describe("locales-fixture", () => {
     const setLocalesActionName = "uxl-localization:set-locales:action";
-
-    test("reducer returns state if action is different", () => {
+    it("reducer returns state if action is different", () => {
         const current = { ca: { label: "my label" } };
         const state = localesReducer(current, { type: "Other", payload: { ca: { label2: "other label" } } });
         assert.strictEqual(state, current);
     });
-    test("reducer initialize locales to empty", () => {
+    it("reducer initialize locales to empty", () => {
         const state = localesReducer(undefined, { type: "any" });
         assert.deepEqual(state, {});
     });
-    test("reducer merges locales", () => {
+    it("reducer merges locales", () => {
         const newLocales = {
             ca: {
                 level2: {
@@ -59,7 +57,7 @@ suite("locales-fixture", () => {
             }
         });
     });
-    test("action creator", () => {
+    it("action creator", () => {
         const locales = { ca: { item: "my item" } };
         const action = setLocalesActionCreator({ ...locales });
         assert.deepEqual(action, { type: setLocalesActionName, payload: locales });

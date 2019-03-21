@@ -1,18 +1,15 @@
-import { LocalizationSelectors } from "../../src";
-
-const assert = chai.assert;
+import { LocalizationSelectors, createLocalizer } from "../../src";
+import {assert} from 'chai';
 import * as sinon from "sinon";
 import createMockStore from "redux-mock-store";
-import { createLocalizer } from "../../src/create-localizer";
-suite("locale mixin test suite", () => {
+describe("locale mixin test suite", () => {
     let mockStore: any;
-    let fixtureContainer: HTMLDivElement = fixture("test-fixture");
     let localizationSelectors: LocalizationSelectors;
     const testLocales = {
         ca: { test: { property1: "propietat1" } },
         en: { test: { property1: "property1" } }
     };
-    setup(() => {
+    beforeEach(() => {
         sinon.restore();
         mockStore = createMockStore([])();
         localizationSelectors = {
@@ -22,12 +19,12 @@ suite("locale mixin test suite", () => {
             localesSelector: sinon.stub().returns(testLocales)
         };
     });
-    test("create localizer test", () => {
+    it("create localizer test", () => {
         let spy = sinon.spy();
         createLocalizer(mockStore, spy, localizationSelectors);
         assert.isTrue(spy.calledOnce);
     });
-    test("create localizer updates when localization properties change", () => {
+    it("create localizer updates when localization properties change", () => {
         let spy = sinon.spy();
         createLocalizer(mockStore, spy, localizationSelectors);
         assert.isTrue(spy.calledOnce);
@@ -44,7 +41,7 @@ suite("locale mixin test suite", () => {
         mockStore.dispatch({ type: "aux" });
         assert.isTrue(spy.callCount === 4);
     });
-    test("create localizer does not update when localization properties do not change", () => {
+    it("create localizer does not update when localization properties do not change", () => {
         let spy = sinon.spy();
         createLocalizer(mockStore, spy, localizationSelectors);
         assert.isTrue(spy.calledOnce);
