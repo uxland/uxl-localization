@@ -4,4 +4,3 @@ Object.assign(global, {
     //MutationObserver: mutationObserver
 });
 
-//const aux = document;
