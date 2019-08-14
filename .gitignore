@@ -1,6 +1,7 @@
 node_modules/
 .idea/
-dist/
+es/
+lib/
 src/**/*.js
 src/**/*.js.map
 test/**/*.js
