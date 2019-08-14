@@ -7,3 +7,4 @@ test/**/*.js
 test/**/*.js.map
 !test/ui/**/*.js
 mochawesome-report/
+coverage
