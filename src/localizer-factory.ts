@@ -1,5 +1,5 @@
 
-declare var IntlMessageFormat;
+import IntlMessageFormat from "intl-messageformat";
 import lensPath from 'ramda/es/lensPath'
 import view from 'ramda/es/view';
 const getArgs = (args: any[]): any[] =>{
@@ -25,7 +25,7 @@ export const localizerFactory: LocalizerFactory = (language: string, locales: Ob
     return function localize(key: string, ...args: any[]) {
         if(!key || !locales || !language || !locales[language])
             return '';
-        let translatedValue = view(getLens(key), locales[language]);
+        let translatedValue :string = view(getLens(key), locales[language]);
         if(!translatedValue)
             return useKeyIfMissing ? key : '';
         if(!args || !args.length)

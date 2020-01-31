@@ -7,3 +7,35 @@
 ## Installation
 
 `npm i @uxland/uxl-localization`
+
+## usage
+```typescript
+const locales = ca: {
+		[moduleName]: {}
+	},
+	en: {
+		[moduleName]: {}
+	},
+	es: {
+        [moduleName]: {
+            key:  'Esto es la cadena'
+        }
+    }
+props.localize(`${moduleName}.key`)
+```
+
+With arguments
+```typescript
+const locales = ca: {
+		[moduleName]: {}
+	},
+	en: {
+		[moduleName]: {}
+	},
+	es: {
+        [moduleName]: {
+            order:  'Pedido con id {id}'
+        }
+    }
+props.localize(`${moduleName}.key`, 'id', '12345');
+```
