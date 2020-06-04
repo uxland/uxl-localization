@@ -1375,10 +1375,10 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@uxland/lit-redux-connect@^1.0.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@uxland/lit-redux-connect/-/lit-redux-connect-1.1.2.tgz#d1bb2b5d6391f12545ddba42e7bda1d22c2d4f33"
-  integrity sha512-LpzTznMCIeEcse2ogdk7o+ofilKgU2QqUZV+VxnzjKzsbJuysjde1Bl5AHQD3hfQZnCDhIRUQOqKb3sOXh1tEA==
+"@uxland/lit-redux-connect@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@uxland/lit-redux-connect/-/lit-redux-connect-1.1.3.tgz#f05ba254f5951ea9b1b932ea44a2c5cf4fc3436a"
+  integrity sha512-EbOS5cw59uSI4X+JsQyZnX7rEmVsomeWjjQYonZjM5wwfNd1c1pUsOT7vYgKodqZl1VAKkVkrs0NsWTa26Gl0g==
   dependencies:
     "@uxland/uxl-utilities" "^3.0.3"
     chai "^4.2.0"
