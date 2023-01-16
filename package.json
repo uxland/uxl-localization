@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@uxland/lit-redux-connect": "^2.0.0",
-    "@uxland/uxl-redux": "^3.0.10",
+    "@uxland/uxl-redux": "^4.0.0",
     "@uxland/uxl-utilities": "^4.0.0",
     "intl-messageformat": "^2.2.0",
     "ramda": "^0.27.0",
